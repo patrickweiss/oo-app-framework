@@ -1,0 +1,7 @@
+{
+  "name": "oo-app-framework",
+  "short_name": "oo-app-framework",
+  "description": "mobile client for a Google Apps Script application",
+  "start_url": "/",
+  "display": "standalone"
+}

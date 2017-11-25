@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/oo-leaf/oo-leaf.html">
+
+<dom-module id="oo-app">
+  <template>
+    <oo-leaf size="icon"></oo-leaf>
+    <oo-leaf size="button"></oo-leaf>
+    <oo-leaf size="mobile"></oo-leaf>
+    <oo-leaf size="desktop"></oo-leaf>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class OoApp extends Polymer.Element {
+      static get is() { return 'oo-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'oo-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(OoApp.is, OoApp);
+  </script>
+</dom-module>

@@ -1,0 +1,30 @@
+{
+  "name": "oo-app-framework",
+  "version": "1.0.0",
+  "description": "oo-app-desc",
+  "main": "index.html",
+  "dependencies": {
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "das-test-command"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickweiss/oo-app-framework.git"
+  },
+  "keywords": [
+    "google",
+    "apps",
+    "script",
+    "mobile",
+    "client"
+  ],
+  "author": "Patrick Weiss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patrickweiss/oo-app-framework/issues"
+  },
+  "homepage": "https://github.com/patrickweiss/oo-app-framework#readme"
+}
