@@ -10,17 +10,22 @@ var ReduxThunk = window.ReduxThunk.default;
 			loggedIn: false,
 			waitingForResponse: false,
 			user: '',
-			branch:'home'
+			branch:'o'
 		},
 		BM: {
 			driveId: '',
-			driveName: 'office one Archiv',
+			driveName: 'book one',
 			ootype: 'OOFolder',
 			oofolders: [],
 			oofiles: []
 		}
 	};
-
+	
+	const serverResponseReducer = (state, action) =>{
+			state.UI.waitingForResponse=action.loggedIn;
+			state.UI.waitingForResponse=false;
+			return state;
+	}
 	const reducer = (state = initial, action) => {
 		var newState = Object.assign({},state);
 		switch (action.type) {
@@ -28,6 +33,7 @@ var ReduxThunk = window.ReduxThunk.default;
 				newState.UI.waitingForResponse=true;
 				return newState;
 			case 'Server_antwortet':
+				serverResponseReducer(newState,action.serverAction);
 				newState.UI.waitingForResponse=false;
 				return newState;
 			default:
@@ -35,26 +41,6 @@ var ReduxThunk = window.ReduxThunk.default;
 
 		}
 	};
-	
-	
-/*	
-	const reducer = (state = initial, action) => {
-		switch (action.type) {
-			case 'Benutzer_einloggen':
-				state.UI.waitingForResponse = true;
-			case 'Server_antwortet':
-				state.UI.waitingForResponse = false;
-			default:
-		}
-		return state;
-	};
-*/
-	
-	//	console.log(Redux);
-//	console.log(ReduxThunk);
-
-//	const store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-//	const store = Redux.createStore(reducer,   Redux.applyMiddleware(ReduxThunk));
 	const store = Redux.createStore(
 		reducer,
 		Redux.compose(

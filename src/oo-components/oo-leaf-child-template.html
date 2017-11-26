@@ -1,14 +1,18 @@
 <link rel="import" href="./oo-leaf.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
-
 <dom-module id="oo-leaf-child-template">
-
   <script>
   /*global OoLeaf*/
     class OoLeafChildTemplate extends OoLeaf {
       static get is() { return 'oo-leaf-child-template'; }
+      connectedCallback() {
+        super.connectedCallback();
+        this.subject = "Benutzer";
+        this.verb = "einloggen";
+        this.sentence = "Bei Google einloggen, um Daten und Dokumente in Google Drive speichern zu können";
+        this.helptext = "Bei Google einloggen, um Daten und Dokumente in Google Drive speichern zu können";
+      }
     }
-
     window.customElements.define(OoLeafChildTemplate.is, OoLeafChildTemplate);
   </script>
 </dom-module>

@@ -7,42 +7,12 @@
   <template>
    <oo-branch></oo-branch>
    <oo-login size="desktop"></oo-login></oo-login>
-   
   </template>
-
 <script>
-  /**
-   * @customElement
-   * @polymer
-   */
   /*global Polymer, ReduxMixin*/
-
   class OoApp extends ReduxMixin(Polymer.Element) {
     static get is() { return 'oo-app'; }
-    static get properties() {
-      return {
-        reduxstate: {
-          type: String,
-          statePath: 'UI.oo-branch'
-        },
-        elementList: {
-          type: Object,
-          statePath: 'UI',
-          observer: '_uiChanged'
-        }
-      };
-    }
-    _uiChanged() {
-      console.log(this.elementList);
-      /*
-      var loginElement = document.createElement('oo-login');
-      console.log(loginElement);
-      console.log(this);
-      this.shadowRoot.appendChild(document.createElement('oo-login'));
-      */
-    }
   }
-
   window.customElements.define(OoApp.is, OoApp);
 </script>
 </dom-module>
