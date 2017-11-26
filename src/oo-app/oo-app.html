@@ -1,31 +1,48 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/oo-leaf/oo-leaf.html">
-
+<link rel="import" href="../oo-components/oo-login.html">
+<link rel="import" href="../oo-components/oo-leaf.html">
+<link rel="import" href="../oo-components/oo-branch.html">
+<link rel="import" href="../oo-components/redux-mixin.html">
 <dom-module id="oo-app">
   <template>
-    <oo-leaf size="icon"></oo-leaf>
-    <oo-leaf size="button"></oo-leaf>
-    <oo-leaf size="mobile"></oo-leaf>
-    <oo-leaf size="desktop"></oo-leaf>
+   <oo-branch></oo-branch>
+   <oo-login size="desktop"></oo-login></oo-login>
+   
   </template>
 
-  <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class OoApp extends Polymer.Element {
-      static get is() { return 'oo-app'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'oo-app'
-          }
-        };
-      }
-    }
+<script>
+  /**
+   * @customElement
+   * @polymer
+   */
+  /*global Polymer, ReduxMixin*/
 
-    window.customElements.define(OoApp.is, OoApp);
-  </script>
+  class OoApp extends ReduxMixin(Polymer.Element) {
+    static get is() { return 'oo-app'; }
+    static get properties() {
+      return {
+        reduxstate: {
+          type: String,
+          statePath: 'UI.oo-branch'
+        },
+        elementList: {
+          type: Object,
+          statePath: 'UI',
+          observer: '_uiChanged'
+        }
+      };
+    }
+    _uiChanged() {
+      console.log(this.elementList);
+      /*
+      var loginElement = document.createElement('oo-login');
+      console.log(loginElement);
+      console.log(this);
+      this.shadowRoot.appendChild(document.createElement('oo-login'));
+      */
+    }
+  }
+
+  window.customElements.define(OoApp.is, OoApp);
+</script>
 </dom-module>

@@ -1,0 +1,34 @@
+<link rel="import" href="./oo-leaf.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="oo-branch">
+  <template>
+    [[branch]]
+  </template>
+
+  <script>
+    /*global OoLeaf*/
+    class OoBranch extends OoLeaf {
+      static get is() { return 'oo-branch'; }
+      static get properties() {
+        return {
+          branch: {
+            type: String,
+            statePath: 'UI.branch'
+          }
+        };
+      }
+      /*
+      connectedCallback() {
+        super.connectedCallback();
+        this.subject = "Verzeichnis";
+        this.verb = "anzeigen";
+        this.sentence = this.branch;
+        this.helptext = "Hier können Sie das Verzeichnis wechseln";
+      }
+      */
+    }
+
+    window.customElements.define(OoBranch.is, OoBranch);
+  </script>
+</dom-module>

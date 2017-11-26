@@ -1,0 +1,53 @@
+<link rel="import" href="./oo-leaf.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="oo-login">
+
+  <script>
+    /*global OoLeaf*/
+    class OoLogin extends OoLeaf {
+      static get is() { return 'oo-login'; }
+      static get actions() {
+        return {
+          updateMessage(message) {
+            return {
+              type: 'UPDATE_MESSAGE',
+              message
+            };
+          }
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this.subject = "Benutzer";
+        this.verb = "einloggen";
+        this.sentence = "Bei Google einloggen, um Daten und Dokumente in Google Drive speichern zu können";
+        this.helptext = "Bei Google einloggen, um Daten und Dokumente in Google Drive speichern zu können";
+      }
+      buttonClicked() {
+        
+        
+        gapi.auth2.getAuthInstance().signIn();
+        
+        this.dispatch((dispatch) => {
+          
+          super.buttonClicked();
+          /*
+          dispatch({
+          type: this.subject+'_'+this.verb
+        });*/
+
+          // Do async task
+          setTimeout(() => {
+            dispatch({
+          type: 'Server_antwortet'
+        });
+          }, 1000);
+        });
+      }
+    }
+
+    window.customElements.define(OoLogin.is, OoLogin);
+  </script>
+</dom-module>

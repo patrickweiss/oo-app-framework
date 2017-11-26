@@ -1,0 +1,66 @@
+<link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
+<script src="../../node_modules/redux/dist/redux.js"></script>
+<script src="../../node_modules/redux-thunk/dist/redux-thunk.js"></script>
+
+<script>
+/*global Redux,ReduxThunk,PolymerRedux*/
+var ReduxThunk = window.ReduxThunk.default;
+	const initial = {
+		UI: {
+			loggedIn: false,
+			waitingForResponse: false,
+			user: '',
+			branch:'home'
+		},
+		BM: {
+			driveId: '',
+			driveName: 'office one Archiv',
+			ootype: 'OOFolder',
+			oofolders: [],
+			oofiles: []
+		}
+	};
+
+	const reducer = (state = initial, action) => {
+		var newState = Object.assign({},state);
+		switch (action.type) {
+			case 'Benutzer_einloggen':
+				newState.UI.waitingForResponse=true;
+				return newState;
+			case 'Server_antwortet':
+				newState.UI.waitingForResponse=false;
+				return newState;
+			default:
+				return newState;
+
+		}
+	};
+	
+	
+/*	
+	const reducer = (state = initial, action) => {
+		switch (action.type) {
+			case 'Benutzer_einloggen':
+				state.UI.waitingForResponse = true;
+			case 'Server_antwortet':
+				state.UI.waitingForResponse = false;
+			default:
+		}
+		return state;
+	};
+*/
+	
+	//	console.log(Redux);
+//	console.log(ReduxThunk);
+
+//	const store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+//	const store = Redux.createStore(reducer,   Redux.applyMiddleware(ReduxThunk));
+	const store = Redux.createStore(
+		reducer,
+		Redux.compose(
+			Redux.applyMiddleware(ReduxThunk),
+			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+			)
+		);
+	ReduxMixin = PolymerRedux(store);
+</script>
