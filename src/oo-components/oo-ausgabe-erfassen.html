@@ -1,0 +1,21 @@
+<link rel="import" href="./oo-leaf.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="oo-ausgabe-erfassen">
+
+  <script>
+  /*global OoLeaf*/
+    class OoAusgabeErfassen extends OoLeaf {
+      static get is() { return 'oo-ausgabe-erfassen'; }
+      connectedCallback() {
+        this.subject = "Ausgabe";
+        this.verb = "erfassen";
+        this.sentence = "Hier können neue Ausgaben erfasst werden";
+        this.helptext = "...";
+        super.connectedCallback();
+      }
+    }
+
+    window.customElements.define(OoAusgabeErfassen.is, OoAusgabeErfassen);
+  </script>
+</dom-module>

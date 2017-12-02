@@ -19,16 +19,15 @@
       }
 
       connectedCallback() {
-        super.connectedCallback();
         this.subject = "Benutzer";
         this.verb = "einloggen";
         this.sentence = "Bei Google einloggen, um Daten und Dokumente in Google Drive speichern zu können";
         this.helptext = "Bei Google einloggen, um Daten und Dokumente in Google Drive speichern zu können";
+        super.connectedCallback();
       }
       buttonClicked() {
         
         
-        gapi.auth2.getAuthInstance().signIn();
         
         this.dispatch((dispatch) => {
           

@@ -3,11 +3,37 @@
 <link rel="import" href="../oo-components/oo-leaf.html">
 <link rel="import" href="../oo-components/oo-branch.html">
 <link rel="import" href="../oo-components/redux-mixin.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../oo-components/oo-ausgabe-erfassen.html">
+<link rel="import" href="../oo-components/oo-einnahme-erfassen.html">
+<link rel="import" href="../oo-components/oo-ustva-abgeben.html">
+
 <dom-module id="oo-app">
   <template>
-   <oo-branch></oo-branch>
-   <oo-login size="desktop"></oo-login></oo-login>
+     <iron-media-query query="(orientation: portrait)" query-matches="{{deviceisportrait}}"></iron-media-query>
    
+    <template is="dom-if" if="[[isportrait]]">
+      <oo-branch></oo-branch>
+      <oo-ausgabe-erfassen size="link"></oo-ausgabe-erfassen>
+      <oo-einnahme-erfassen size="link"></oo-einnahme-erfassen>
+      <oo-ustva-abgeben size="link"></oo-ustva-abgeben>
+      <oo-login size="link"></oo-login></oo-login>
+    </template>
+    
+    <template is="dom-if" if="[[islandscape]]">
+      <table width="100%">
+        <tr>
+          <td><oo-branch></oo-branch></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td><oo-ausgabe-erfassen size="portrait"></oo-ausgabe-erfassen></td>
+          <td><oo-einnahme-erfassen size="portrait"></oo-einnahme-erfassen></td>
+          <td><oo-ustva-abgeben size="portrait"></oo-ustva-abgeben></td>
+        </tr>
+      </table>
+    </template>
+  
+  
   </template>
 
 <script>
@@ -15,9 +41,9 @@
    * @customElement
    * @polymer
    */
-  /*global Polymer, ReduxMixin*/
+  /*global Polymer, ReduxMixin,OoLeaf*/
 
-  class OoApp extends ReduxMixin(Polymer.Element) {
+  class OoApp extends OoLeaf {
     static get is() { return 'oo-app'; }
     static get properties() {
       return {
@@ -29,6 +55,10 @@
           type: Object,
           statePath: 'UI',
           observer: '_uiChanged'
+        },
+        deviceisportrait:{
+          type:Boolean,
+          observer:"_orientationChanged"
         }
       };
     }
@@ -40,6 +70,9 @@
       console.log(this);
       this.shadowRoot.appendChild(document.createElement('oo-login'));
       */
+    }
+    _orientationChanged(){
+      if (this.deviceisportrait)this.size="portrait"; else this.size="landscape";
     }
   }
 
