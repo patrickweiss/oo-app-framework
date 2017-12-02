@@ -91,9 +91,11 @@ function updateSigninStatus(isSignedIn) {
     callScriptFunction("getFolderById");
     OOGoogleConnector.getOrCreateOOFolder();
   }*/
+  /*
     dispatch({
           type: 'Server_antwortet'
         });
+        */
 }
 /*gibt Ordner im Rootfolder des Benutzer auf der Console aus, um zu testen ob Rest Aufruf funktioniert*/
 function callScriptFunction(functionName,parameters) {
