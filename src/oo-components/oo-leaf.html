@@ -6,11 +6,15 @@
       <link rel="stylesheet" type="text/css" href="/src/css/oo.css">
   
       <template is="dom-if" if="[[isicon]]">
-       <button type="button">[[charactericon]]</button>
+       <button type="button" on-click="changePage">[[charactericon]]</button>
       </template>
       
-      <template is="dom-if" if="[[islink]]">
-        <div class="link"><button type="button">[[subject]] [[verb]]</button></div>
+      <template is="dom-if" if="[[isbutton]]">
+       <button type="button" on-click="changePage">[[subject]] [[verb]]</button>
+      </template>
+      
+      <template is="dom-if" if="[[isbar]]">
+        <div class="bar"><button type="button" on-click="changePage">[[subject]] [[verb]]</button></div>
       </template>
 
       <template is="dom-if" if="[[isportrait]]">
@@ -42,6 +46,10 @@
       static get is() { return 'oo-leaf'; }
       static get properties() {
         return {
+          branch:{
+            type:String,
+            value:"office_one"
+          },
           icon: {
             type: String,
             value: './src/pictures/leaf.png'
@@ -70,9 +78,13 @@
             type: Boolean,
             computed: 'isIcon(size)'
           },
-          islink: {
+          isbutton: {
             type: Boolean,
-            computed: 'isLink(size)'
+            computed: 'isButton(size)'
+          },         
+          isbar: {
+            type: Boolean,
+            computed: 'isBar(size)'
           },
           isportrait: {
             type: Boolean,
@@ -97,9 +109,13 @@
       isIcon(size) {
         return size === "icon";
       }
-
-      isLink(size) {
-        return size === "link";
+      
+      isButton(size) {
+        return size === "button";
+      }
+ 
+      isBar(size) {
+        return size === "bar";
       }
       isPortrait(size) {
         return size === "portrait";
@@ -108,13 +124,12 @@
       isLandscape(size) {
         return size === "landscape";
       }
-      createCharacterIcon(){
-       return 
+      changePage(){
+        this.dispatch({
+          type:"change_branch",
+          branch:this.branch
+        });
       }
-      createLink(){
-       return "./"+this.subject+"_"+this.verb;
-      }
-      
       buttonClicked() {
         this.dispatch({
           type: this.subject+'_'+this.verb

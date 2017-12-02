@@ -10,7 +10,7 @@ var ReduxThunk = window.ReduxThunk.default;
 			loggedIn: false,
 			waitingForResponse: false,
 			user: '',
-			branch:'home'
+			branch:'oo-root'
 		},
 		BM: {
 			driveId: '',
@@ -24,6 +24,8 @@ var ReduxThunk = window.ReduxThunk.default;
 	const reducer = (state = initial, action) => {
 		var newState = Object.assign({},state);
 		switch (action.type) {
+			case 'change_branch':
+				newState.UI.branch=action.branch;
 			case 'Benutzer_einloggen':
 				newState.UI.waitingForResponse=true;
 				return newState;

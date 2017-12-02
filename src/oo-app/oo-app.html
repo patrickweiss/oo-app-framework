@@ -1,37 +1,21 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../oo-components/oo-login.html">
 <link rel="import" href="../oo-components/oo-leaf.html">
 <link rel="import" href="../oo-components/oo-branch.html">
-<link rel="import" href="../oo-components/redux-mixin.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../oo-components/oo-ausgabe-erfassen.html">
-<link rel="import" href="../oo-components/oo-einnahme-erfassen.html">
-<link rel="import" href="../oo-components/oo-ustva-abgeben.html">
+<link rel="import" href="../oo-components/oo-content.html">
 
 <dom-module id="oo-app">
   <template>
      <iron-media-query query="(orientation: portrait)" query-matches="{{deviceisportrait}}"></iron-media-query>
    
     <template is="dom-if" if="[[isportrait]]">
-      <oo-branch></oo-branch>
-      <oo-ausgabe-erfassen size="link"></oo-ausgabe-erfassen>
-      <oo-einnahme-erfassen size="link"></oo-einnahme-erfassen>
-      <oo-ustva-abgeben size="link"></oo-ustva-abgeben>
-      <oo-login size="link"></oo-login></oo-login>
+      <oo-branch size="landscape"></oo-branch>
+      <oo-content size="portrait"></oo-content>
     </template>
     
     <template is="dom-if" if="[[islandscape]]">
-      <table width="100%">
-        <tr>
-          <td><oo-branch></oo-branch></td><td></td><td></td>
-        </tr>
-        <tr>
-          <td><oo-ausgabe-erfassen size="portrait"></oo-ausgabe-erfassen></td>
-          <td><oo-einnahme-erfassen size="portrait"></oo-einnahme-erfassen></td>
-          <td><oo-ustva-abgeben size="portrait"></oo-ustva-abgeben></td>
-        </tr>
-      </table>
-    </template>
+      <oo-branch size="landscape"></oo-branch>
+      <oo-content size="landscape"></oo-content>
+  </template>
   
   
   </template>
@@ -53,7 +37,7 @@
         },
         elementList: {
           type: Object,
-          statePath: 'UI',
+          statePath: 'UI.branch',
           observer: '_uiChanged'
         },
         deviceisportrait:{
