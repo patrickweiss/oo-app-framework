@@ -1,10 +1,9 @@
 <link rel="import" href="./oo-leaf.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
-
 <dom-module id="oo-login">
-
+  
   <script>
-    /*global OoLeaf*/
+    /*global OoLeaf,gapi*/
     class OoLogin extends OoLeaf {
       static get is() { return 'oo-login'; }
       static get actions() {
@@ -17,7 +16,6 @@
           }
         };
       }
-
       connectedCallback() {
         this.subject = "Benutzer";
         this.verb = "einloggen";
@@ -28,23 +26,9 @@
         super.connectedCallback();
       }
       buttonClicked() {
-        
-        
-        
-        this.dispatch((dispatch) => {
-          
+       this.dispatch((dispatch) => {
           super.buttonClicked();
-          /*
-          dispatch({
-          type: this.subject+'_'+this.verb
-        });*/
-
-          // Do async task
-          setTimeout(() => {
-            dispatch({
-          type: 'Server_antwortet'
-        });
-          }, 1000);
+         // gapi.auth2.getAuthInstance().signIn();
         });
       }
     }
