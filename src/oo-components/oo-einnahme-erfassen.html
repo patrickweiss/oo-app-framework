@@ -1,0 +1,24 @@
+<link rel="import" href="./oo-leaf.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="oo-einnahme-erfassen">
+
+  <script>
+  /*global OoLeaf*/
+    class OoEinnahmeErfassen extends OoLeaf {
+      static get is() { return 'oo-einnahme-erfassen'; }
+      connectedCallback() {
+        this.subject = "Einnahme";
+        this.verb = "erfassen";
+        this.sentence = "Hier können Einnahmen erfasst werden.";
+        this.helptext = "...";
+        this.branch="oo-root/oo-einnahme-erfassen";
+        super.connectedCallback();
+      }
+    }
+    
+    
+
+    window.customElements.define(OoEinnahmeErfassen.is, OoEinnahmeErfassen);
+  </script>
+</dom-module>

@@ -1,17 +1,64 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../oo-components/oo-login.html">
 <link rel="import" href="../oo-components/oo-leaf.html">
 <link rel="import" href="../oo-components/oo-branch.html">
-<link rel="import" href="../oo-components/redux-mixin.html">
+<link rel="import" href="../oo-components/oo-content.html">
+
 <dom-module id="oo-app">
   <template>
-   <oo-branch></oo-branch>
-   <oo-login size="desktop"></oo-login>
+     <iron-media-query query="(orientation: portrait)" query-matches="{{deviceisportrait}}"></iron-media-query>
+   
+    <template is="dom-if" if="[[isportrait]]">
+      <oo-branch size="landscape"></oo-branch>
+      <oo-content size="portrait"></oo-content>
+    </template>
+    
+    <template is="dom-if" if="[[islandscape]]">
+      <oo-branch size="landscape"></oo-branch>
+      <oo-content size="landscape"></oo-content>
+  </template>
+  
+  
+
   </template>
 <script>
-  /*global Polymer, ReduxMixin*/
-  class OoApp extends ReduxMixin(Polymer.Element) {
+  /**
+   * @customElement
+   * @polymer
+   */
+  /*global Polymer, ReduxMixin,OoLeaf*/
+
+  class OoApp extends OoLeaf {
     static get is() { return 'oo-app'; }
+    static get properties() {
+      return {
+        reduxstate: {
+          type: String,
+          statePath: 'UI.oo-branch'
+        },
+        elementList: {
+          type: Object,
+          statePath: 'UI.branch',
+          observer: '_uiChanged'
+        },
+        deviceisportrait:{
+          type:Boolean,
+          observer:"_orientationChanged"
+        }
+      };
+    }
+    _uiChanged() {
+      console.log(this.elementList);
+      /*
+      var loginElement = document.createElement('oo-login');
+      console.log(loginElement);
+      console.log(this);
+      this.shadowRoot.appendChild(document.createElement('oo-login'));
+      */
+    }
+    _orientationChanged(){
+      if (this.deviceisportrait)this.size="portrait"; else this.size="landscape";
+    }
+
   }
   window.customElements.define(OoApp.is, OoApp);
 </script>

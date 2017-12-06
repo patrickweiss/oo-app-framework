@@ -1,0 +1,50 @@
+<link rel="import" href="./oo-leaf.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="../oo-components/redux-mixin.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../oo-components/oo-root.html">
+<link rel="import" href="../oo-components/oo-ausgabe-erfassen.html">
+<link rel="import" href="../oo-components/oo-einnahme-erfassen.html">
+<link rel="import" href="../oo-components/oo-ustva-abgeben.html">
+
+
+<dom-module id="oo-content">
+  <template>
+    <iron-pages selected="[[branch]]" attr-for-selected="name" fallback-selection="oo-root" role="main">
+      <oo-root name="oo-root" size="portrait"></oo-root> 
+      <oo-einnahme-erfassen name="oo-root/oo-einnahme-erfassen" size="portrait"></oo-einnahme-erfassen> 
+      <oo-ausgabe-erfassen name="oo-root/oo-ausgabe-erfassen" size="portrait"></oo-ausgabe-erfassen> 
+      <oo-ustva-abgeben name="oo-root/oo-ustva-abgeben" size="portrait"></oo-ordner-anlegen>
+    </iron-pages>
+  </template>
+  
+  <script>
+    /*global OoLeaf*/
+    class OoContent extends OoLeaf {
+      static get is() { return 'oo-content'; }
+      static get properties() {
+        return {
+          branch: {
+            type: String,
+            statePath: 'UI.branch'
+          }
+       
+        };
+      }
+      connectedCallback() {
+        this.subject = "Portrait";
+        this.verb = "anzeigen";
+        this.sentence = "...";
+        this.helptext = "...";
+        super.connectedCallback();
+      }
+
+    }
+    
+
+
+    window.customElements.define(OoContent.is, OoContent);
+  </script>
+</dom-module>

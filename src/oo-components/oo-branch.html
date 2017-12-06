@@ -2,7 +2,7 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
 <dom-module id="oo-branch">
   <template>
-    [[branch]]
+   [[currentbranch]] 
   </template>
   <script>
     /*global OoLeaf*/
@@ -10,12 +10,33 @@
       static get is() { return 'oo-branch'; }
       static get properties() {
         return {
-          branch: {
-            type: String,
-            statePath: 'UI.branch'
+          currentbranch: {
+            type: Object,
+            statePath: 'UI.branch',
+            observer: '_branchChanged'
           }
         };
       }
+      _branchChanged() {
+        console.log(this.currentbranch)
+        var leafArray = this.currentbranch.split("/");
+        var branchHTML="";
+        for (var i in leafArray) {
+          branchHTML+="<"+leafArray[i]+" size=\"button\">"+"</"+leafArray[i]+">"+"<";
+        }
+        this.shadowRoot.innerHTML=branchHTML;
+        console.log(branchHTML);
+
+      }   /*
+      connectedCallback() {
+        super.connectedCallback();
+        this.subject = "Verzeichnis";
+        this.verb = "anzeigen";
+        this.sentence = this.branch;
+        this.helptext = "Hier können Sie das Verzeichnis wechseln";
+      }
+      */
+
     }
     window.customElements.define(OoBranch.is, OoBranch);
   </script>
