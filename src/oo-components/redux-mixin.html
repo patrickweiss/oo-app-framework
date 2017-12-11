@@ -45,12 +45,19 @@ var ReduxThunk = window.ReduxThunk.default;
 
 		}
 	};
-	const store = Redux.createStore(
-		reducer,
-		Redux.compose(
+	
+	
+	var reduxMiddleware;
+	if (window.__REDUX_DEVTOOLS_EXTENSION__){
+		reduxMiddleware = Redux.compose(
 			Redux.applyMiddleware(ReduxThunk),
 			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-			)
+			);
+	} else reduxMiddleware = 	Redux.applyMiddleware(ReduxThunk);
+	
+	const store = Redux.createStore(
+		reducer,
+		reduxMiddleware
 		);
 	ReduxMixin = PolymerRedux(store);
 	console.log(initial);
