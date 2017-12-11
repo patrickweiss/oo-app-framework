@@ -1,0 +1,80 @@
+<link rel="import" href="./office-leaf.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<dom-module id="office-branch">
+  <template>
+     <style type="text/css">
+        .LIST_ITEM {
+          background: #f3f3f3;
+          box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          padding: 5px 5px 5px 5px;
+          margin: 5px 5px 5px 5px;
+        }
+      
+        .MOBILE {
+          background: #00f300;
+          box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          padding: 5px 5px 5px 5px;
+          margin: 5px 5px 5px 5px;
+        }
+      </style> 
+      <template is="dom-if" if="[[isICON]]">
+       <button type="button" on-click="changePage">[[charactericon]]</button>
+      </template>
+      <template is="dom-if" if="[[isBUTTON]]">
+       <button type="button" on-click="changePage">[[subject]] [[verb]]</button>
+      </template>
+      <template is="dom-if" if="[[isLIST_ITEM]]">
+        <div class="LIST_ITEM"><button type="button" on-click="changePage">[[subject]] [[verb]]</button></div>
+      </template>
+      <template is="dom-if" if="[[isTABLET]]">
+        <div class="MOBILE">
+          <H1>Landscape: [[subject]] [[verb]]</H1>
+          <p>[[helptext]]</p>
+          <button type="button" on-click="buttonClicked">[[subject]] [[verb]]</button>
+      </div> 
+      </template>
+
+  </template>
+
+  <script>
+    /*global OfficeLeaf*/
+    class OfficeBranch extends OfficeLeaf {
+      static get is() { return 'office-branch'; }
+      static get properties() {
+        return {
+          leafArray: {
+            type: Array,
+            value: ['office-leaf'],
+            observer: '_leafArrayChanged'
+          }
+        };
+      }
+      _leafArrayChanged() {
+        if (this.isMOBILE){
+        console.log(this.leafArray);
+        var branchHTML = "<div id=\"path\">hallo </div>";
+        for (var i in this.leafArray) {
+          branchHTML += "<" + this.leafArray[i] + " size=\"LIST_ITEM\">" + "</" + this.leafArray[i] + ">";
+        }
+        this.shadowRoot.innerHTML = branchHTML;
+        super.updatePath();
+        console.log(branchHTML);
+        }
+        
+      }
+      /*
+         connectedCallback() {
+           super.connectedCallback();
+           this.subject = "Verzeichnis";
+           this.verb = "anzeigen";
+           this.sentence = this.branch;
+           this.helptext = "Hier können Sie das Verzeichnis wechseln";
+         }
+         */
+
+    }
+    window.customElements.define(OfficeBranch.is, OfficeBranch);
+  </script>
+</dom-module>

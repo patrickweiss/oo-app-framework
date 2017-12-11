@@ -1,0 +1,26 @@
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../oo-components/office-branch.html">
+<link rel="import" href="../oo-components/ob-ausgabe-erfassen.html">
+<link rel="import" href="../oo-components/ob-einnahme-erfassen.html">
+
+<dom-module id="ob-root">
+
+  <script>
+  /*global OfficeBranch*/
+    class ObRoot extends OfficeBranch {
+      static get is() { return 'ob-root'; }
+      connectedCallback() {
+        this.subject = "Funktion";
+        this.verb = "auswählen";
+        this.sentence = "Hauptmenü zur Funktionauswahl";
+        this.path=["ob-root"];
+        this.leafArray=["ob-ausgabe-erfassen","ob-einnahme-erfassen"];
+        super.connectedCallback();
+      }
+    }
+    
+    
+
+    window.customElements.define(ObRoot.is, ObRoot);
+  </script>
+</dom-module>

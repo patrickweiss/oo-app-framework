@@ -1,0 +1,167 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="./redux-mixin.html">
+<dom-module id="office-leaf">
+  <template>
+      <style type="text/css">
+        .LIST_ITEM {
+          background: #f3f3f3;
+          box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          padding: 5px 5px 5px 5px;
+          margin: 5px 5px 5px 5px;
+        }
+      
+        .MOBILE {
+          background: #00f300;
+          box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          padding: 5px 5px 5px 5px;
+          margin: 5px 5px 5px 5px;
+        }
+      </style>
+      <template is="dom-if" if="[[isICON]]">
+       <button type="button" on-click="changePage">[[charactericon]]</button>
+      </template>
+
+      <template is="dom-if" if="[[isBUTTON]]">
+       <button type="button" on-click="changePage">[[subject]] [[verb]]</button>
+      </template>
+
+      <template is="dom-if" if="[[isLIST_ITEM]]">
+        <div class="LIST_ITEM"><button type="button" on-click="changePage">[[subject]] [[verb]]</button></div>
+      </template>
+
+      <template is="dom-if" if="[[isMOBILE]]">
+        <div class="MOBILE">
+          <div id="path">hallo </div>
+          <H1>[[subject]] [[verb]]</H1>
+          <p>[[helptext]]</p>
+          <button type="button" on-click="buttonClicked">[[subject]] [[verb]]</button>
+        </div>
+      </template>
+
+      <template is="dom-if" if="[[isTABLET]]">
+        <div class="TABLET">
+        
+        <H1>Landscape: [[subject]] [[verb]]</H1>
+        <p>[[helptext]]</p>
+        <button type="button" on-click="buttonClicked">[[subject]] [[verb]]</button>
+      </div> 
+      </template>
+
+  </template>
+  <script>
+    /**
+     * `office-leaf`
+     * Base class for all office one objects that can appear on any UI
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    /*global Polymer, ReduxMixin*/
+    class OfficeLeaf extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'office-leaf'; }
+      static get properties() {
+        return {
+          path: {
+            type: Array,
+            value: ["office-leaf"]
+          },
+          size: {
+            type: String,
+            value: "MOBILE"
+          },
+          purpose: {
+            type: String,
+            value: "INFORMATION"
+          },
+          verb: {
+            type: String,
+            value: 'define'
+          },
+          subject: {
+            type: String,
+            value: 'leaf'
+          },
+          sentence: {
+            type: String,
+            value: 'This is the base class for anything that will be shown on any device'
+          },
+          isICON: {
+            type: Boolean,
+            computed: 'isIcon(size)'
+          },
+          isBUTTON: {
+            type: Boolean,
+            computed: 'isButton(size)'
+          },
+          isLIST_ITEM: {
+            type: Boolean,
+            computed: 'isListItem(size)'
+          },
+          isMOBILE: {
+            type: Boolean,
+            computed: 'isMobile(size)'
+          },
+          isTABLET: {
+            type: Boolean,
+            computed: 'isTablet(size)'
+          },
+          charactericon: {
+            type: String,
+            value: "Sv"
+          }
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this.charactericon = this.subject[0] + this.verb[0];
+       // this.updatePath();
+      }
+      updatePath(){
+        if (this.isMOBILE){
+          console.log(this.shadowRoot);
+          
+          var pathHTML = "";
+          for (var i in this.path) {
+           pathHTML += "<" + this.path[i] + " size=\"BUTTON\"></" + this.path[i] + ">";
+          }
+          this.shadowRoot.getElementById("path").innerHTML=pathHTML;
+        }
+      }
+      isIcon(size) {
+        return size === "ICON";
+      }
+      isButton(size) {
+        return size === "BUTTON";
+      }
+      isListItem(size) {
+        return size === "LIST_ITEM";
+      }
+      isMobile(size) {
+        return size === "MOBILE";
+      }
+      isTablet(size) {
+        return size === "TABLET";
+      }
+
+      changePage() {
+        this.dispatch({
+          type: "change_leaf",
+          leaf: this.path[this.path.length-1]
+        });
+      }
+      buttonClicked() {
+        this.dispatch({
+          type: this.subject + '_' + this.verb
+        });
+      }
+
+    }
+
+    window.customElements.define(OfficeLeaf.is, OfficeLeaf);
+  </script>
+</dom-module>

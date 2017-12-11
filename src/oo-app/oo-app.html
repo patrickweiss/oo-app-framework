@@ -1,43 +1,24 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../oo-components/oo-leaf.html">
-<link rel="import" href="../oo-components/oo-branch.html">
-<link rel="import" href="../oo-components/oo-content.html">
+<link rel="import" href="../oo-components/office-leaf.html">
+<link rel="import" href="../oo-components/office-branch.html">
+<link rel="import" href="../oo-components/ob-root.html">
 
 <dom-module id="oo-app">
-  <template>
-     <iron-media-query query="(orientation: portrait)" query-matches="{{deviceisportrait}}"></iron-media-query>
-   
-    <template is="dom-if" if="[[isportrait]]">
-      <oo-branch size="landscape"></oo-branch>
-      <oo-content size="portrait"></oo-content>
-    </template>
-    
-    <template is="dom-if" if="[[islandscape]]">
-      <oo-branch size="landscape"></oo-branch>
-      <oo-content size="landscape"></oo-content>
-  </template>
-  
-  
 
-  </template>
 <script>
   /**
    * @customElement
    * @polymer
    */
-  /*global Polymer, ReduxMixin,OoLeaf*/
+  /*global Polymer, ReduxMixin,OfficeLeaf*/
 
-  class OoApp extends OoLeaf {
+  class OoApp extends OfficeLeaf {
     static get is() { return 'oo-app'; }
     static get properties() {
       return {
-        reduxstate: {
-          type: String,
-          statePath: 'UI.oo-branch'
-        },
-        elementList: {
+        currentLeaf: {
           type: Object,
-          statePath: 'UI.branch',
+          statePath: 'UI.leaf',
           observer: '_uiChanged'
         },
         deviceisportrait:{
@@ -47,7 +28,8 @@
       };
     }
     _uiChanged() {
-      console.log(this.elementList);
+      console.log(this.currentLeaf);
+      this.shadowRoot.innerHTML="<"+this.currentLeaf+" size=\"MOBILE\"></"+this.currentLeaf+">";
       /*
       var loginElement = document.createElement('oo-login');
       console.log(loginElement);

@@ -11,7 +11,7 @@ var ReduxThunk = window.ReduxThunk.default;
 			loggedIn: false,
 			waitingForResponse: false,
 			user: '',
-			branch:'oo-root'
+			leaf:'ob-root'
 
 		},
 		BM: {
@@ -31,8 +31,8 @@ var ReduxThunk = window.ReduxThunk.default;
 	const reducer = (state = initial, action) => {
 		var newState = JSON.parse(JSON.stringify(state));
 		switch (action.type) {
-			case 'change_branch':
-				newState.UI.branch=action.branch;
+			case 'change_leaf':
+				newState.UI.leaf=action.leaf;
 			case 'Benutzer_einloggen':
 				newState.UI.waitingForResponse=true;
 				return newState;

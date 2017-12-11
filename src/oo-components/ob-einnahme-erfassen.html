@@ -1,0 +1,23 @@
+<link rel="import" href="./office-branch.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<dom-module id="ob-einnahme-erfassen">
+
+  <script>
+  /*global OfficeBranch*/
+    class ObEinnahmeErfassen extends OfficeBranch {
+      static get is() { return 'ob-einnahme-erfassen'; }
+      connectedCallback() {
+        this.subject = "Einnahme";
+        this.verb = "erfassen";
+        this.sentence = "Hier können Einnahmen erfasst werden.";
+        this.path=["ob-root","ob-einnahme-erfassen"];
+        super.connectedCallback();
+      }
+    }
+    
+    
+
+    window.customElements.define(ObEinnahmeErfassen.is, ObEinnahmeErfassen);
+  </script>
+</dom-module>
